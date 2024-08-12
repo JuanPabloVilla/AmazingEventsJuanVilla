@@ -207,10 +207,10 @@ for (let i = 0; i < variable.length; i++) {
   container.innerHTML += ` 
   <div class="card" style="width: 18rem;">
   <img src="${variable[i].image}" class="card-img-top" alt="food_fair">
-  <div class="card-body">
+  <div class="card-body d-flex flex-column">
     <h5 class="card-title">${variable[i].name}</h5>
     <p class="card-text">${variable[i].description}</p>
-    <div class="d-flex flex-row justify-content-around align-items-center">
+    <div class="d-flex flex-row justify-content-around mt-auto">
       <p>Precio: ${variable[i].price}</p>
       <a href="./details.html" class="btn btn-primary">details</a>
     </div>
