@@ -214,4 +214,21 @@ for (let i = 0; i < variable.length; i++) {
 </div>
 ` 
 } 
+alert('Bienvenido a la pagina de Amazing events')
 
+let SearchBar = document.getElementById("SearchBar")
+
+for (let i = 0; i < varible.length; i++) {
+  SearchBar.innerHTML += `
+          <div class="d-flex flex-row align-items-center flex-wrap gap-3">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+            <label class="form-check-label" for="flexCheckDefault">${variable[i].category}</label>
+          </div>
+        </div>
+        <form class="d-flex" role="search">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+  `
+}
