@@ -19,3 +19,7 @@ header, footer{
 #containerPast img , #container img{
     height: 22vh;
 }
+
+.filtro{
+    display: none;
+}

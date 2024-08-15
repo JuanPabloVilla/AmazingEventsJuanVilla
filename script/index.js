@@ -195,9 +195,15 @@ const data = {
     ],
   };
 
+
 let container = document.getElementById("container")
 
 let variable = data.events 
+
+let variable1 = new Set (variable) 
+
+let searchbutons = document.getElementById("SearchBar")
+
 
 for (let i = 0; i < variable.length; i++) { 
   container.innerHTML += ` 
@@ -213,22 +219,77 @@ for (let i = 0; i < variable.length; i++) {
   </div>
 </div>
 ` 
-} 
-alert('Bienvenido a la pagina de Amazing events')
+}  
 
-let SearchBar = document.getElementById("SearchBar")
+let categorias = new Set()
 
-for (let i = 0; i < varible.length; i++) {
-  SearchBar.innerHTML += `
-          <div class="d-flex flex-row align-items-center flex-wrap gap-3">
+data.events.forEach(evento => {
+  categorias.add(evento.category);
+});
+
+let categoriasArray = Array.from(categorias);
+
+for (let i = 0; i < categoriasArray.length; i++) {
+  let label = document.createElement("label")
+      label.innerHTML = `
+                  <input type="checkbox" value="${categoriasArray[i]}" id= "${categoriasArray[i]}"> ${categoriasArray[i]}
+  `
+  searchbutons.appendChild(label)                
+}
+
+
+
+/*
+categoriasArray.sort((a, b) => a.length - b.length);
+*/
+
+/*
+for (let i = 0; i < variable1.length; i++) {  
+  searchbutons.innerHTML += `
+   <div class="d-flex flex-row align-items-center flex-wrap gap-3">
           <div class="form-check">
+            <label class="form-check-label" for="flexCheckDefault">
+
             <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-            <label class="form-check-label" for="flexCheckDefault">${variable[i].category}</label>
+
+            </label>
           </div>
         </div>
+
+        
         <form class="d-flex" role="search">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success" type="submit">Search</button>
+          <input id="buscador" name="buscador" class="form-control me-2" type="search" placeholder="Search...">
         </form>
   `
 }
+*/
+
+/*
+function BarraBusqueda() { 
+  const searchbuton = [...new Set(data.events.map(event => event.category))];
+  searchbutons.innerHTML =  ``;
+  searchbuton.forEach(category => { 
+    searchbutons.innerHTML = ` 
+          <div class="d-flex flex-row align-items-center flex-wrap gap-3">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="${category}" id="${category}">
+            <label class="form-check-label" for="flexCheckDefault">${category}</label>
+          </div>
+        </div>
+        ` 
+        searchbuton.appendchild(searchbutons);
+  });
+}
+console.log(BarraBusqueda())
+*/
+
+  /*
+  document.getElementById("SearchBar")
+  
+        <form class="d-flex" role="search">
+          <input id="buscador" name="buscador" class="form-control me-2" type="search" placeholder="Search...">
+        </form>
+  ` 
+}
+*/
+
