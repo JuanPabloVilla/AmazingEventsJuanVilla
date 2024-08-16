@@ -195,15 +195,6 @@ const data = {
   ],
 };
 
-///////////////////////////////////////////////////////////////////
-//variables
-
-/*
-let container = document.getElementById("containerPast")
-
-let fechaActual = new Date (data.currentDate)
-const variable = data.events
-*/
 
 ///////////////////////////////////////////////////////////////////
 //Pintar checkboxes y filtro de tarjetas past
