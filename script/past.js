@@ -195,12 +195,58 @@ const data = {
   ],
 };
 
+///////////////////////////////////////////////////////////////////
+//variables
+
+/*
 let container = document.getElementById("containerPast")
 
 let fechaActual = new Date (data.currentDate)
-
 const variable = data.events
+*/
 
+///////////////////////////////////////////////////////////////////
+//Pintar checkboxes y filtro de tarjetas past
+
+
+let past_events = []  
+let fecha_actual = new Date(data.currentDate)
+
+ for (const evento of data.events) {
+    let event_date = new Date(evento.date)
+
+    
+    if (event_date < fecha_actual) {
+        past_events.push(evento)
+    }
+
+ }
+
+ let Categorías = new Set()
+
+past_events.forEach(evento => {
+  Categorías.add(evento.category);
+});
+
+let categoriasArray = Array.from(Categorías);
+categoriasArray.sort((a, b) => a.length - b.length);
+
+let checkbox = document.getElementById("SearchBar")
+
+
+for (let i = 0; i < categoriasArray.length; i++) {
+  let label = document.createElement("label")
+      label.className = ""
+      label.innerHTML = `
+                  <input type="checkbox" value="${categoriasArray[i]}" id= "${categoriasArray[i]}"> ${categoriasArray[i]}
+  `
+      
+  checkbox.insertAdjacentElement("afterbegin",label)                
+}
+
+
+
+/*
 for (let i = 0; i < variable.length; i++) { 
   let fechaDate = new Date (variable[i].date)
   if (fechaDate < fechaActual) 
@@ -218,3 +264,67 @@ for (let i = 0; i < variable.length; i++) {
 </div>
 ` 
 } 
+*/
+
+
+
+///////////////////////////////////////////////////////////////////
+//Function
+
+//function 1 (tarjetas)
+
+
+
+function Eventos(variable) {
+
+  let container = document.getElementById("container")
+  container.innerHTML = "";
+
+  if (variable.length === 0) {
+    container.innerHTML = "<p>No hay eventos para mostrar.</p>";
+    return;
+}
+
+let fragment = document.createDocumentFragment();
+
+for (let i = 0; i < variable.length; i++) {
+  let tarjeta = document.createElement("div")
+  tarjeta.className = "card col-sm-5 col-lg-3 col-xl-2  mb-3 mx-1 p-0"
+  tarjeta.innerHTML = `
+              <img src="${variable[i].image}" class="card-img-top" alt="food_fair">
+              <div class="card-body d-flex flex-column"> 
+                <h5 class="card-title">${variable[i].name}</h5>
+                <p class="card-text">${variable[i].description}</p>
+                <div class="d-flex flex-row justify-content-around mt-auto">
+                  <p>precio: ${variable[i].price}</p>
+                  <a href="./pages/details.html" class="btn btn-primary">details</a>
+                </div>
+             </div>` 
+    fragment.appendChild(tarjeta)                
+}
+  container.appendChild(fragment);
+}
+
+//function 2 (filtro)
+
+function filtrarEventos() {
+  let texto = document.getElementById("texto").value.toLowerCase();
+  let checkboxes = document.querySelectorAll("#SearchBar input[type='checkbox']:checked");
+  let categoriasSeleccionadas = Array.from(checkboxes).map(checkbox => checkbox.value);
+
+  let eventosFiltrados = past_events.filter(evento => {
+      let coincideTexto = evento.name.toLowerCase().includes(texto) || evento.description.toLowerCase().includes(texto);
+      let coincideCategoria = categoriasSeleccionadas.length === 0 || categoriasSeleccionadas.includes(evento.category);
+      return coincideTexto && coincideCategoria;
+  });
+
+  Eventos(eventosFiltrados);
+}
+
+document.getElementById("texto").addEventListener("input", filtrarEventos);
+
+document.querySelectorAll("#SearchBar input[type='checkbox']").forEach(checkbox => {
+    checkbox.addEventListener("change", filtrarEventos);
+});
+
+Eventos(past_events);
