@@ -195,31 +195,19 @@ const data = {
     ],
   };
 
+///////////////////////////////////////////////////////
 
-let container = document.getElementById("container")
+//variables
+
 
 let variable = data.events 
-
-let variable1 = new Set (variable) 
 
 let searchbutons = document.getElementById("SearchBar")
 
 
-for (let i = 0; i < variable.length; i++) { 
-  container.innerHTML += ` 
-  <div class="card" style="width: 18rem;">
-  <img src="${variable[i].image}" class="card-img-top" alt="food_fair">
-  <div class="card-body d-flex flex-column"> 
-    <h5 class="card-title">${variable[i].name}</h5>
-    <p class="card-text">${variable[i].description}</p>
-    <div class="d-flex flex-row justify-content-around mt-auto">
-      <p>precio: ${variable[i].price}</p>
-      <a href="./pages/details.html" class="btn btn-primary">details</a>
-    </div>
-  </div>
-</div>
-` 
-}  
+///////////////////////////////////////////////////////
+
+//checkboxes
 
 let categorias = new Set()
 
@@ -237,59 +225,82 @@ for (let i = 0; i < categoriasArray.length; i++) {
   searchbutons.appendChild(label)                
 }
 
+///////////////////////////////////////////////////////
 
+//tarjetas
+
+
+function Eventos(variable) {
+
+  let container = document.getElementById("container")
+  container.innerHTML = "";
+
+  if (variable.length === 0) {
+    container.innerHTML = "<p>No hay eventos para mostrar.</p>";
+    return;
+}
+
+let fragment = document.createDocumentFragment();
+
+for (let i = 0; i < variable.length; i++) {
+  let tarjeta = document.createElement("div")
+  tarjeta.className = "card col-sm-5 col-lg-3 col-xl-2  mb-3 mx-1 p-0"
+  tarjeta.innerHTML = `
+              <img src="${variable[i].image}" class="card-img-top" alt="food_fair">
+              <div class="card-body d-flex flex-column"> 
+                <h5 class="card-title">${variable[i].name}</h5>
+                <p class="card-text">${variable[i].description}</p>
+                <div class="d-flex flex-row justify-content-around mt-auto">
+                  <p>precio: ${variable[i].price}</p>
+                  <a href="./pages/details.html" class="btn btn-primary">details</a>
+                </div>
+             </div>` 
+    fragment.appendChild(tarjeta)                
+}
+  container.appendChild(fragment);
+}
 
 /*
-categoriasArray.sort((a, b) => a.length - b.length);
-*/
-
-/*
-for (let i = 0; i < variable1.length; i++) {  
-  searchbutons.innerHTML += `
-   <div class="d-flex flex-row align-items-center flex-wrap gap-3">
-          <div class="form-check">
-            <label class="form-check-label" for="flexCheckDefault">
-
-            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-
-            </label>
-          </div>
-        </div>
-
-        
-        <form class="d-flex" role="search">
-          <input id="buscador" name="buscador" class="form-control me-2" type="search" placeholder="Search...">
-        </form>
-  `
+for (let i = 0; i < variable.length; i++) { 
+  container.innerHTML += ` 
+  <div class="card" style="width: 18rem;">
+  <img src="${variable[i].image}" class="card-img-top" alt="food_fair">
+  <div class="card-body d-flex flex-column"> 
+    <h5 class="card-title">${variable[i].name}</h5>
+    <p class="card-text">${variable[i].description}</p>
+    <div class="d-flex flex-row justify-content-around mt-auto">
+      <p>precio: ${variable[i].price}</p>
+      <a href="./pages/details.html" class="btn btn-primary">details</a>
+    </div>
+  </div>
+</div>
+` 
 }
 */
 
-/*
-function BarraBusqueda() { 
-  const searchbuton = [...new Set(data.events.map(event => event.category))];
-  searchbutons.innerHTML =  ``;
-  searchbuton.forEach(category => { 
-    searchbutons.innerHTML = ` 
-          <div class="d-flex flex-row align-items-center flex-wrap gap-3">
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="${category}" id="${category}">
-            <label class="form-check-label" for="flexCheckDefault">${category}</label>
-          </div>
-        </div>
-        ` 
-        searchbuton.appendchild(searchbutons);
+
+///////////////////////////////////////////////////////
+
+//filtro
+
+function filtrarEventos() {
+  let texto = document.getElementById("texto").value.toLowerCase();
+  let checkboxes = document.querySelectorAll("#SearchBar input[type='checkbox']:checked");
+  let categoriasSeleccionadas = Array.from(checkboxes).map(checkbox => checkbox.value);
+
+  let eventosFiltrados = variable.filter(evento => {
+      let coincideTexto = evento.name.toLowerCase().includes(texto) || evento.description.toLowerCase().includes(texto);
+      let coincideCategoria = categoriasSeleccionadas.length === 0 || categoriasSeleccionadas.includes(evento.category);
+      return coincideTexto && coincideCategoria;
   });
-}
-console.log(BarraBusqueda())
-*/
 
-  /*
-  document.getElementById("SearchBar")
-  
-        <form class="d-flex" role="search">
-          <input id="buscador" name="buscador" class="form-control me-2" type="search" placeholder="Search...">
-        </form>
-  ` 
+  Eventos(eventosFiltrados);
 }
-*/
 
+document.getElementById("texto").addEventListener("input", filtrarEventos);
+
+document.querySelectorAll("#SearchBar input[type='checkbox']").forEach(checkbox => {
+    checkbox.addEventListener("change", filtrarEventos);
+});
+
+Eventos(variable);
