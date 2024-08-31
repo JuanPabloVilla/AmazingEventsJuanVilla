@@ -1,3 +1,6 @@
+body{
+    background-color: #eae2b7;
+}
 
 .carousel img{
     height: 30vh;
@@ -13,13 +16,60 @@
 }
 
 header, footer{
-    min-height: 6vh;
+    min-height: 8vh;
 }
 
 #containerPast img , #container img{
     height: 22vh;
 }
 
-.filtro{
-    display: none;
+.contenicons{
+    width: 12rem;
+}
+
+
+.contentfoot{
+    height: 5rem;
+}
+
+.header, .footer{
+    background-color: #323031;
+}
+
+.textcolor{
+    color: #f6f5f2;
+}
+
+.refcontent{
+    gap: 2rem;
+    padding-right: 2rem;
+}
+
+.headerimag{
+    padding-left: 1rem;
+}
+
+.bordersearchbar{
+    border: 2px solid;
+    background-color: #688db9;
+    color: #f6f5f2;
+}
+
+.formsearchb{
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btnclr{
+    background-color: #323031;
+    color: #f6f5f2;
+}
+
+.textcardcont{
+    background-color: #688db9;
+    color: #f6f5f2;
+}
+
+.cartcont{
+    padding-bottom: 1rem;
 }

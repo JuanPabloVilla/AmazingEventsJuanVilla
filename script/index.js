@@ -244,39 +244,21 @@ let fragment = document.createDocumentFragment();
 
 for (let i = 0; i < variable.length; i++) {
   let tarjeta = document.createElement("div")
-  tarjeta.className = "card col-sm-5 col-lg-3 col-xl-2  mb-3 mx-1 p-0"
+  tarjeta.className = "card col-sm-5 col-lg-3 col-xl-2 mx-4 p-0"
   tarjeta.innerHTML = `
               <img src="${variable[i].image}" class="card-img-top" alt="food_fair">
-              <div class="card-body d-flex flex-column"> 
+              <div class="textcardcont card-body d-flex flex-column">  
                 <h5 class="card-title">${variable[i].name}</h5>
                 <p class="card-text">${variable[i].description}</p>
-                <div class="d-flex flex-row justify-content-around mt-auto">
-                  <p>precio: ${variable[i].price}</p>
-                  <a href="./pages/details.html" class="btn btn-primary">details</a>
+                <div class="cartcont align-items-center d-flex flex-row justify-content-around mt-auto">
+                  <span class="fw-bold">precio: ${variable[i].price}</span>
+                  <a href="./pages/details.html" class="btn btnclr">details</a>
                 </div>
              </div>` 
     fragment.appendChild(tarjeta)                
 }
   container.appendChild(fragment);
 }
-
-/*
-for (let i = 0; i < variable.length; i++) { 
-  container.innerHTML += ` 
-  <div class="card" style="width: 18rem;">
-  <img src="${variable[i].image}" class="card-img-top" alt="food_fair">
-  <div class="card-body d-flex flex-column"> 
-    <h5 class="card-title">${variable[i].name}</h5>
-    <p class="card-text">${variable[i].description}</p>
-    <div class="d-flex flex-row justify-content-around mt-auto">
-      <p>precio: ${variable[i].price}</p>
-      <a href="./pages/details.html" class="btn btn-primary">details</a>
-    </div>
-  </div>
-</div>
-` 
-}
-*/
 
 
 ///////////////////////////////////////////////////////
