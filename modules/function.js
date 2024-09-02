@@ -28,7 +28,7 @@ function Eventos(variable) {
                   <p class="card-text">${variable[i].description}</p>
                   <div class="cartcont align-items-center d-flex flex-row justify-content-around mt-auto">
                     <span class="fw-bold">precio: ${variable[i].price}</span>
-                    <a href="./pages/details.html" class="btn btnclr">details</a>
+                    <a href="../pages/details.html?id=${variable[i]._id}" class="btn btnclr">details</a>
                   </div>
                </div>` 
       fragment.appendChild(tarjeta)                
